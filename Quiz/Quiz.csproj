@@ -172,9 +172,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\_PartialIndex.cshtml" />
-    <Content Include="css\Quiz.less" />
-    <Content Include="css\StyleSheet1.less" />
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace Quiz.App_Start
+namespace Quiz
 {
     public class BundleConfig
     {
