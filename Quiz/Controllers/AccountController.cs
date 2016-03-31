@@ -9,10 +9,9 @@ namespace Quiz.Controllers
 {
     public class AccountController : Controller
     {
-
         public ViewResult Login()
         {
-            var identifier = "SuperQuiz";//Request.QueryString["Identifier"];
+            var identifier = "SuperQuiz"; //Request.QueryString["Identifier"];
             if (string.IsNullOrEmpty(identifier))
             {
                 identifier = Guid.NewGuid().ToString();

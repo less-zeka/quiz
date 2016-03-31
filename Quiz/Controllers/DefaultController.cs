@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Quiz.Gameplay;
 using Quiz.Infrastructure;
-using Quiz.Models;
 
 namespace Quiz.Controllers
 {
@@ -16,7 +15,7 @@ namespace Quiz.Controllers
 
         public PartialViewResult NextQuestion()
         {
-            var model = GameMaster.GetNextQuestion();
+            var model = GameMaster.CurrentQuestion;
             return PartialView("_Question", model);
         }
 
@@ -24,6 +23,11 @@ namespace Quiz.Controllers
         {
             var model = Hubs.QuizHub.GetUsersByIdentifier(HttpContext.GetCurrentLogonUserIdentifier());
             return PartialView("_UserLegend", model);
+        }
+
+        public PartialViewResult PlayerAnswer(int answerId)
+        {
+            return PartialView("_PlayerAnswer");
         }
     }
 }

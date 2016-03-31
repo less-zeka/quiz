@@ -37,11 +37,16 @@ namespace Quiz.Hubs
 
         private void CheckIfCanAskNextQuestion(IEnumerable<User> users)
         {
-            //currently always! :-)
-            var nextQuestion = GameMaster.GetNextQuestion();
-            foreach (var user in users)
+            var enumerable = users as User[] ?? users.ToArray();
+            if (enumerable.Count(u => u.IsReadyForNextQuestion) >= 2)
             {
-                Clients.User(user.Name).nextQuestion(nextQuestion);
+                GameMaster.ProceedToNextQuestion();
+            }
+            //currently always! :-)
+            //var nextQuestion = GameMaster.GetNextQuestion();
+            foreach (var user in enumerable)
+            {
+                Clients.User(user.Name).nextQuestion();
             }
         }
 
@@ -148,11 +153,10 @@ namespace Quiz.Hubs
         }
 
 
-        public void PlayerAnswer(User user, int answerId)
+        public void PlayerAnswer(string test)
         {
             var x = 0;
             x = 2 + 2;
-            
         }
     }
 }
