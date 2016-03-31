@@ -13,17 +13,20 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <meta name="description" content="qapuut! kahoot war gestern!"/>
 </head>
 <body>
-    <div>
-        Hi I'm layoutpage
+<div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            @if (Request.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Log Off", "LogOff", "Account", null, new {@class = "btn btn-danger"})</li>
+            }
+        </ul>
     </div>
-    <div>
-        @RenderBody()
-
-        @RenderSection("scripts", required: false)
-
-
-    </div>
+    @RenderBody()
+    @RenderSection("scripts", required: false)
+</div>
 </body>
 </html>

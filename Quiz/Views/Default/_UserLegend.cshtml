@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Quiz.Models.User>
+<span>Angemeldet:</span>
+<ul>
+    @foreach (var user in Model)
+    {
+        if (user.IsReadyForNextQuestion)
+        {
+            <li class="ready">@user.Name is ready!</li>
+
+        }
+        else
+        {
+            <li>@user.Name</li>
+        }
+    }
+</ul>

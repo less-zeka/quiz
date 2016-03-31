@@ -1,0 +1,17 @@
+﻿@model Quiz.Models.Question
+
+@if (Model != null)
+{
+    @Model.QuestionText
+    foreach (var answer in @Model.Answers)
+    {
+        <button id="@answer.Id" class="btn btn-default answerButton">@answer.Text</button>
+    }
+}
+
+
+<script>
+    $(".answerButton").click(function(sender) {
+        console.log(this.id);
+    });
+</script>
