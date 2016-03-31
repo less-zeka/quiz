@@ -69,7 +69,7 @@ namespace Quiz.Gameplay
                         new Answer {Id = 1, Text = "Ein preprocessing Compiler", IsCorrect = false},
                         new Answer {Id = 2, Text = "Eine Programmiersprache", IsCorrect = true},
                         new Answer {Id = 3, Text = "Ein Framework", IsCorrect = false},
-                        new Answer {Id = 4, Text = "Kalt!", IsCorrect = false}
+                        new Answer {Id = 4, Text = "Heiss!", IsCorrect = true}
                     }
                 }
             };
