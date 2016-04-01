@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Quiz.Gameplay;
 
 namespace Quiz.Models
 {

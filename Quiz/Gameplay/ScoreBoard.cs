@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Quiz.Gameplay
+﻿namespace Quiz.Gameplay
 {
     public class ScoreBoard
     {
