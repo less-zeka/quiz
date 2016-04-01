@@ -2,6 +2,11 @@
     // Reference the auto-generated proxy for the hub.
     var quiz = $.connection.quizHub;
 
+    quiz.client.playerAnswer = function (answerId) {
+        console.log("playerAnswer what to do now?");
+        quiz.server.playerAnswer(answerId);
+    };
+
     quiz.client.updateConnectedUsers = function () {
         console.log("updateConnectedUsers");
         $("#playerList").load("/Default/UserLegend");

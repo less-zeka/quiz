@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Quiz.Models.Score>
+<span>Score:</span>
+<ul>
+    @foreach (var score in Model)
+    {
+        <li class="ready">@score.User.Name @score.Points</li>
+    }
+</ul>
+

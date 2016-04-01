@@ -4,9 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="playerList">???</></div>
-<div id="readyButton" class="btn btn-success">I bi parat</div>
-<div id="nextQuestion" class="hidden">
+<div class="row">
+    <div id="playerList" class="col-xs-12">???</></div>
+    <div id="readyButton" class="col-xs-12 btn btn-success">Nächste Frage</div>
+</div>
+<div id="nextQuestion" class="row hidden">
     @Html.Partial("_Question")
 </div>
 

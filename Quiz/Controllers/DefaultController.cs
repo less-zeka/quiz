@@ -1,10 +1,13 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
+using Microsoft.AspNet.SignalR;
 using Quiz.Gameplay;
+using Quiz.Hubs;
 using Quiz.Infrastructure;
 
 namespace Quiz.Controllers
 {
-    [Authorize]
+    [System.Web.Mvc.Authorize]
     public class DefaultController : Controller
     {
         // GET: Default
@@ -21,13 +24,23 @@ namespace Quiz.Controllers
 
         public PartialViewResult UserLegend()
         {
-            var model = Hubs.QuizHub.GetUsersByIdentifier(HttpContext.GetCurrentLogonUserIdentifier());
+            var model = QuizHub.GetUsersByIdentifier(HttpContext.GetCurrentLogonUserIdentifier());
             return PartialView("_UserLegend", model);
         }
 
-        public PartialViewResult PlayerAnswer(int answerId)
+        public async Task<PartialViewResult> PlayerAnswer(int answerId)
         {
-            return PartialView("_PlayerAnswer");
+            var hubContext = GlobalHost.ConnectionManager.GetHubContext<QuizHub>();
+            await hubContext.Clients.User(User.Identity.Name).playerAnswer(answerId);
+            //return PartialView("_PlayerAnswer");
+            var model = QuizHub.GetScore();
+            return PartialView("_Score", model);
+        }
+
+        public PartialViewResult Score()
+        {
+            var model = QuizHub.GetScore();
+            return PartialView("_Score", model);
         }
     }
 }

@@ -1,12 +1,18 @@
 ﻿@model Quiz.Models.Question
 
-@if (Model != null)
-{
-    @Model.QuestionText
-    foreach (var answer in @Model.Answers)
+<div class="">
+    @if (Model != null)
     {
-        <button id="@("answerButton"+@answer.Id)" class="btn btn-default answerButton">@answer.Text</button>
+        <div class="panel panel-default">
+            <div class="panel-heading">Frage:</div>
+            <div class="panel-body">@Model.QuestionText</div>
+        </div>
+        <div class="col-xs-12">
+            @foreach (var answer in @Model.Answers)
+            {
+                <button id="@("answerButton"+@answer.Id)" class="btn btn-default answerButton">@answer.Text</button>
+            }
+        </div>
     }
-}
-
+</div>
 <script src="~/js/question.js"></script>

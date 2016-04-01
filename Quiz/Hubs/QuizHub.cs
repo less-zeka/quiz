@@ -19,7 +19,7 @@ namespace Quiz.Hubs
         private static readonly ConcurrentDictionary<string, User> Users
             = new ConcurrentDictionary<string, User>(StringComparer.InvariantCultureIgnoreCase);
 
-        private GameMaster GameMaster => new GameMaster();
+        public static GameMaster GameMaster => new GameMaster();
 
         public User LogonUser => GetUser(Context.User.Identity.Name);
 
@@ -35,19 +35,34 @@ namespace Quiz.Hubs
             CheckIfCanAskNextQuestion(users);
         }
 
+        //currently always! :-)
         private void CheckIfCanAskNextQuestion(IEnumerable<User> users)
         {
             var enumerable = users as User[] ?? users.ToArray();
-            if (enumerable.Count(u => u.IsReadyForNextQuestion) >= 2)
+            if (enumerable.Count(u => u.IsReadyForNextQuestion) >= 1)
             {
                 GameMaster.ProceedToNextQuestion();
             }
-            //currently always! :-)
-            //var nextQuestion = GameMaster.GetNextQuestion();
             foreach (var user in enumerable)
             {
                 Clients.User(user.Name).nextQuestion();
             }
+        }
+
+        internal static object GetScore()
+        {
+            var listOfAnswers = GameMaster.PlayerAnswers;
+            var scores = new List<Score>();
+            foreach (var user in Users)
+            {
+                var score = new Score
+                {
+                    User = user.Value,
+                    Points = listOfAnswers.Count(u => u.Key == user.Value && u.Value.IsCorrect)
+                };
+                scores.Add(score);
+            }
+            return scores;
         }
 
         public static IList<User> GetUsersByIdentifier(string identifier)
@@ -94,7 +109,7 @@ namespace Quiz.Hubs
         {
             var userName = Context.User.Identity.Name;
             var connectionId = Context.ConnectionId;
-            var identifier = "SuperQuiz"; //CurrentLogonUserIdentifier;
+            var identifier = CurrentLogonUserIdentifier;
 
             var user = Users.GetOrAdd(userName, _ => new User
             {
@@ -153,10 +168,9 @@ namespace Quiz.Hubs
         }
 
 
-        public void PlayerAnswer(string test)
+        public Task PlayerAnswer(int answerId)
         {
-            var x = 0;
-            x = 2 + 2;
+            return  GameMaster.SetPlayerAnswer(LogonUser, answerId);
         }
     }
 }

@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Gameplay\GameMaster.cs" />
+    <Compile Include="Gameplay\ScoreBoard.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -178,6 +179,7 @@
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Models\Score.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -188,6 +190,7 @@
     <Content Include="Views\Default\_Question.cshtml" />
     <Content Include="Views\Default\_PlayerAnswer.cshtml" />
     <None Include="Properties\PublishProfiles\quiz.cheese-maker.pubxml" />
+    <Content Include="Views\Default\_Score.cshtml" />
     <None Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
