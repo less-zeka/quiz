@@ -1,16 +1,8 @@
-﻿@model IEnumerable<Quiz.Models.User>
-<span>Angemeldet:</span>
+﻿@model IEnumerable<Quiz.Models.Score>
+<span>Score:</span>
 <ul>
-    @foreach (var user in Model)
+    @foreach (var score in Model)
     {
-        if (user.IsReadyForNextQuestion)
-        {
-            <li class="ready">@user.Name is ready!</li>
-
-        }
-        else
-        {
-            <li>@user.Name</li>
-        }
+        <li class="ready">@score.User.Name @score.Points</li>
     }
 </ul>

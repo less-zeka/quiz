@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 using Quiz.Gameplay;
 using Quiz.Hubs;
-using Quiz.Infrastructure;
 
 namespace Quiz.Controllers
 {
@@ -23,7 +22,7 @@ namespace Quiz.Controllers
 
         public PartialViewResult UserLegend()
         {
-            var model = QuizHub.GetUsersByIdentifier(HttpContext.GetCurrentLogonUserIdentifier());
+            var model = QuizHub.GetScore();
             return PartialView("_UserLegend", model);
         }
 
@@ -32,13 +31,7 @@ namespace Quiz.Controllers
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<QuizHub>();
             await hubContext.Clients.User(User.Identity.Name).playerAnswer(answerId);
             var model = QuizHub.GetScore();
-            return PartialView("_Score", model);
-        }
-
-        public PartialViewResult Score()
-        {
-            var model = QuizHub.GetScore();
-            return PartialView("_Score", model);
+            return PartialView("_UserLegend", model);
         }
     }
 }

@@ -35,17 +35,17 @@ namespace Quiz.Hubs
             CheckIfCanAskNextQuestion(users);
         }
 
-        //currently always! :-)
         private void CheckIfCanAskNextQuestion(IEnumerable<User> users)
         {
             var enumerable = users as User[] ?? users.ToArray();
-            if (enumerable.Count(u => u.IsReadyForNextQuestion) >= 1)
+            if (enumerable.Count(u => u.IsReadyForNextQuestion) >= enumerable.Length)
             {
                 GameMaster.ProceedToNextQuestion();
-            }
-            foreach (var user in enumerable)
-            {
-                Clients.User(user.Name).nextQuestion();
+                foreach (var user in enumerable)
+                {
+                    Clients.User(user.Name).nextQuestion();
+                    user.IsReadyForNextQuestion = false;
+                }
             }
         }
 
@@ -105,6 +105,20 @@ namespace Quiz.Hubs
             }).Select(x => x.Key);
         }
 
+        public User GetUser(string username)
+        {
+            User user;
+            Users.TryGetValue(username, out user);
+            return user;
+        }
+
+        public Task PlayerAnswer(int answerId)
+        {
+            PlayerIsReady(LogonUser.Name);
+            return  GameMaster.SetPlayerAnswer(LogonUser, answerId);
+        }
+
+        #region Connection
         public override Task OnConnected()
         {
             var userName = Context.User.Identity.Name;
@@ -159,18 +173,6 @@ namespace Quiz.Hubs
 
             return base.OnDisconnected(stopCalled);
         }
-
-        public User GetUser(string username)
-        {
-            User user;
-            Users.TryGetValue(username, out user);
-            return user;
-        }
-
-
-        public Task PlayerAnswer(int answerId)
-        {
-            return  GameMaster.SetPlayerAnswer(LogonUser, answerId);
-        }
+        #endregion
     }
 }

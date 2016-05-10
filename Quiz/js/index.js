@@ -25,6 +25,7 @@
         $("#readyButton").click(function () {
             // Call the Send method on the hub.
             quiz.server.playerIsReady($("#displayname").val());
+            $(this).addClass("hidden");
         });
     });
 });

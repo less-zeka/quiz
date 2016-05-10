@@ -12,7 +12,7 @@ namespace Quiz.Gameplay
         public static Question CurrentQuestion { get; set; }
         private bool NewQuestionNeeded { get; set; }
 
-        public static IList<KeyValuePair<User, Answer>> PlayerAnswers { get; set; }
+        public static IList<KeyValuePair<User, Answer>> PlayerAnswers = new List<KeyValuePair<User, Answer>>();
 
         private static ICollection<Question> _questions;
 
@@ -24,11 +24,6 @@ namespace Quiz.Gameplay
             {
                 LoadQuestions();
                 LoadNextQuestion();
-            }
-
-            if (PlayerAnswers == null)
-            {
-                PlayerAnswers = new List<KeyValuePair<User, Answer>>();
             }
         }
 
@@ -73,28 +68,28 @@ namespace Quiz.Gameplay
                         new Answer {Id = 4, Text = "3", IsCorrect = false}
                     }
                 },
-                new Question
-                {
-                    QuestionText = "Wer hat Recht?",
-                    Answers = new List<Answer>
-                    {
-                        new Answer {Id = 1, Text = "Sabine", IsCorrect = true},
-                        new Answer {Id = 2, Text = "Silvana", IsCorrect = true},
-                        new Answer {Id = 3, Text = "Alle", IsCorrect = true},
-                        new Answer {Id = 4, Text = "Keiner", IsCorrect = true}
-                    }
-                },
-                new Question
-                {
-                    QuestionText = "Wie wird das Wetter?",
-                    Answers = new List<Answer>
-                    {
-                        new Answer {Id = 1, Text = "Das Wetter wird nicht. Das Wetter ist.", IsCorrect = true},
-                        new Answer {Id = 2, Text = "Schön", IsCorrect = true},
-                        new Answer {Id = 3, Text = "42", IsCorrect = false},
-                        new Answer {Id = 4, Text = "Zu kalt!", IsCorrect = false}
-                    }
-                },
+                //new Question
+                //{
+                //    QuestionText = "Wer hat Recht?",
+                //    Answers = new List<Answer>
+                //    {
+                //        new Answer {Id = 1, Text = "Sabine", IsCorrect = true},
+                //        new Answer {Id = 2, Text = "Silvana", IsCorrect = true},
+                //        new Answer {Id = 3, Text = "Alle", IsCorrect = true},
+                //        new Answer {Id = 4, Text = "Keiner", IsCorrect = true}
+                //    }
+                //},
+                //new Question
+                //{
+                //    QuestionText = "Wie wird das Wetter?",
+                //    Answers = new List<Answer>
+                //    {
+                //        new Answer {Id = 1, Text = "Das Wetter wird nicht. Das Wetter ist.", IsCorrect = true},
+                //        new Answer {Id = 2, Text = "Schön", IsCorrect = true},
+                //        new Answer {Id = 3, Text = "42", IsCorrect = false},
+                //        new Answer {Id = 4, Text = "Zu kalt!", IsCorrect = false}
+                //    }
+                //},
                 new Question
                 {
                     QuestionText = "C# ist ...",
@@ -103,12 +98,10 @@ namespace Quiz.Gameplay
                         new Answer {Id = 1, Text = "Ein preprocessing Compiler", IsCorrect = false},
                         new Answer {Id = 2, Text = "Eine Programmiersprache", IsCorrect = true},
                         new Answer {Id = 3, Text = "Ein Framework", IsCorrect = false},
-                        new Answer {Id = 4, Text = "Ähnlich wie Java, aber besser.", IsCorrect = true}
                     }
                 }
             };
         }
-
 
         public Task SetPlayerAnswer(User logonUser, int answerId)
         {
